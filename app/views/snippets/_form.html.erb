@@ -1,0 +1,30 @@
+<%= form_for @snippet do |f| %>
+ 
+  <% if @snippet.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@snippet.errors.count, "error") %> prohibited
+        this snippet from being saved:
+      </h2>
+      <ul>
+        <% @snippet.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+ 
+  <p>
+    <%= f.label :Create_Your_Snippet %><br>
+    <%= f.text_area :text, :cols => "80", :rows => "10" %>
+  </p>  
+  <p>
+    <%= f.check_box :is_private %>
+    <%= f.label :Private? %>
+  </p>
+ 
+  <p>
+    <%= f.submit "Save" %>
+  </p>
+ 
+<% end %>
