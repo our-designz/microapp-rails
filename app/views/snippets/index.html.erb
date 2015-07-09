@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Snippets</h1>
+<%= link_to 'Create Snippet', new_snippet_path %>
+
+<%= form_tag(snippets_path, :method => "get", id: "search-form") do %>
+	<p>
+		<%= text_field_tag :search, params[:search], placeholder: "Search Snipppet" %>
+		<%= submit_tag "Search" %>
+	</p>
+<% end %>
+<div id="snippet_listing">
+    <% if @snippets.present? %>
+	
+	<%= page_entries_info @snippets, entry_name: "Records" %>
+	
+		<table>
+		  <thead>
+			<tr>
+			  <th>Snippet</th>
+			  <th colspan="2"></th>
+			</tr>
+		  </thead>
+
+		  <tbody>
+			<% @snippets.each do |snippet| %>
+			  <tr>
+				
+				<td><%= link_to truncate(snippet.snippet, :ommision => "Read More", :length => 50), snippet_path(snippet) %></td>
+				<td><%= link_to 'Show', snippet %></td>
+				<td><%= link_to 'Edit', edit_snippet_path(snippet) %></td>
+				<td><%= link_to 'Destroy', snippet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			  </tr>
+			<% end %>
+		  </tbody>
+		</table>
+	    <%= paginate @snippets %>
+	<% else %>
+	   <p>There are no snippets containing the term(s) <%= params[:search] %>.</p>
+	<% end %>
+</div>
+<br>
+
+<%= link_to 'New Snippet', new_snippet_path %>
